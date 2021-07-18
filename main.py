@@ -8,17 +8,18 @@ import altair as alt
 from sklearn.preprocessing import StandardScaler
 from imblearn.over_sampling import RandomOverSampler
 from sklearn.model_selection import train_test_split
-from gender import gender
-from chest_pain import chest_pain
-from blood_sugar import blood_sugar
-from blood_pressure import blood_pressure
-from cholesterol import cholesterol
-from vessel import vessel
-from age import age
-from model import *
-from pred_model import *
+from visualize.overall import overall
+from visualize.gender import gender
+from visualize.chest_pain import chest_pain
+from visualize.blood_sugar import blood_sugar
+from visualize.blood_pressure import blood_pressure
+from visualize.cholesterol import cholesterol
+from visualize.vessel import vessel
+from visualize.age import age
+from model.model import *
+from model.pred_model import *
 
-data = pd.read_csv('heart.csv')
+data = pd.read_csv('datasets/heart.csv')
 
 st.set_page_config(layout="wide")
 st.title("Heart Disease Analysis and Prediction")
@@ -32,25 +33,7 @@ data = data.dropna(axis=0, how ='any')
 
 st.header("Data Visualization")
 
-has_hd = data.loc[data['target'] == 1]
-no_hd = len(data) - len(has_hd)
-
-overall_data = pd.DataFrame({
-    'overall': ['Have Heart Disease', 'Do not have Heart Disease'],
-    'b': [len(has_hd), no_hd],
-})
-
-bar = alt.Chart(overall_data).mark_bar().encode(
-    x=alt.X('overall', title='Heart Disease'),
-    y=alt.Y('b', title='Number of people'),
-    color='overall'
-)
-st.subheader("Overall Analysis of Heart Disease")
-st.altair_chart(bar, use_container_width=True)
-st.write('Have Heart Disease:', len(has_hd))
-st.write('Do not have Heart Disease:', no_hd)
-
-
+overall(data)
 gender(data)
 chest_pain(data)
 blood_sugar(data)
@@ -177,7 +160,7 @@ with st.form("risk_form"):
         check_data = pd.DataFrame(test)
 
 if show:
-    pred_data = pd.read_csv('heart_risk_pred.csv')
+    pred_data = pd.read_csv('datasets/heart_risk_pred.csv')
 
     # Preprocessing
     # Drop Missing Values
