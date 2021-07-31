@@ -17,20 +17,22 @@ def logisticRegression(train_input,train_target,test_input,test_target):
     pred(model,test_input,test_target)
 
 # K-Nearest Neighbor
-def knn(train_input,train_target,test_input,test_target,n_neighbors=10):    
-    knn = KNeighborsClassifier(n_neighbors=n_neighbors)
+def knn(train_input,train_target,test_input,test_target):    
+    knn = KNeighborsClassifier(n_neighbors=10)
     model = knn.fit(train_input,train_target)
     pred(model,test_input,test_target)
 
 # Decision Tree
-def decision_tree(train_input,train_target,test_input,test_target,ccp=0.0):
-    decision_tree = DecisionTreeClassifier(criterion="gini", random_state=0, ccp_alpha=ccp)
+def decision_tree(train_input,train_target,test_input,test_target):
+    # decision_tree = DecisionTreeClassifier(criterion="gini", random_state=0, ccp_alpha=ccp)
+    decision_tree = DecisionTreeClassifier(criterion="gini", random_state=20, ccp_alpha=0.8)
     model = decision_tree.fit(train_input,train_target)
     pred(model,test_input,test_target)
 
 # Random Forest
-def random_forest(train_input,train_target,test_input,test_target,estimator=100,ccp=0.0):
-    rf = RandomForestClassifier(n_estimators=estimator)
+def random_forest(train_input,train_target,test_input,test_target):
+    # rf = RandomForestClassifier(n_estimators=estimator)
+    rf = RandomForestClassifier(n_estimators=5)
     model = rf.fit(train_input,train_target)
     pred(model,test_input,test_target)
 
@@ -41,8 +43,8 @@ def xgboost(train_input,train_target,test_input,test_target,n_estimators=100,eta
     pred(model,test_input,test_target)
 
 # Standard Vector Machine
-def svm(train_input,train_target,test_input,test_target,gamma='auto'):
-    svm_model = SVC(gamma=gamma)
+def svm(train_input,train_target,test_input,test_target):
+    svm_model = SVC(gamma='auto')
     model = svm_model.fit(train_input,train_target)
     pred(model,test_input,test_target)
 
@@ -53,8 +55,8 @@ def naive_bayes(train_input,train_target,test_input,test_target):
     pred(model,test_input,test_target)
 
 # Stochastic Gradient Descent
-def sgd(train_input,train_target,test_input,test_target,loss="hinge",penalty="l2"):
-    nb_model = SGDClassifier(loss=loss,penalty=penalty)
+def sgd(train_input,train_target,test_input,test_target):
+    nb_model = SGDClassifier(loss="hinge",penalty="l2")
     model = nb_model.fit(train_input,train_target)
     pred(model,test_input,test_target)
 
